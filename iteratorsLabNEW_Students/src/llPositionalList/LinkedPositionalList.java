@@ -9,11 +9,13 @@ import interfaces.Position;
 import interfaces.PositionalList;
 
 public class LinkedPositionalList<E> implements PositionalList<E> {
-
+	
+	private LinkedPositionalList<E> list;
+	
 	private static class DNode<E> implements Position<E> { 
 		private E element; 
 		private DNode<E> prev, next;
-		private LinkedPositionalList<E> list;
+		
 		public E getElement() {
 			return element;
 		}
@@ -21,7 +23,7 @@ public class LinkedPositionalList<E> implements PositionalList<E> {
 			this.element = element;
 			this.prev = prev;
 			this.next = next;
-			this.list = list;
+			//this.list = list;
 		}
 		public DNode(E element) {
 			this(element, null, null);
@@ -29,12 +31,12 @@ public class LinkedPositionalList<E> implements PositionalList<E> {
 		public DNode() {
 			this(null, null, null);
 		}
-		public LinkedPositionalList<E> getList() {
-			return list;
-		}
-		public void setList(LinkedPositionalList<E> list) {
-			this.list = list;
-		}
+//		public LinkedPositionalList<E> getList() {
+//			return list;
+//		}
+//		public void setList(LinkedPositionalList<E> list) {
+//			this.list = list;
+//		}
 		public void setElement(E element) {
 			this.element = element;
 		}
@@ -73,10 +75,13 @@ public class LinkedPositionalList<E> implements PositionalList<E> {
 	private DNode<E> validate(Position<E> p) throws IllegalArgumentException { 
 		try { 
 			DNode<E> dp = (DNode<E>) p; 
+			LinkedPositionalList<E> lp = (LinkedPositionalList<E>) p;
+			lp.positions();			
 			if (dp.getPrev() == null || dp.getNext() == null) 
 				throw new IllegalArgumentException("Invalid internal node."); 
-			
+		
 			return dp; 
+			
 		} catch (ClassCastException e) { 
 			throw new IllegalArgumentException("Invalid position type."); 
 		}
